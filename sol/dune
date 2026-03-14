@@ -1,67 +1,84 @@
 (executable
  (name p001)
+ (modules p001)
  (libraries euler))
 
 (executable
  (name p002)
+ (modules p002)
  (libraries euler))
 
 (executable
  (name p003)
+ (modules p003)
  (libraries euler))
 
 (executable
  (name p004)
+ (modules p004)
  (libraries euler))
 
 (executable
  (name p005)
+ (modules p005)
  (libraries euler))
 
 (executable
  (name p006)
+ (modules p006)
  (libraries euler))
 
 (executable
  (name p007)
+ (modules p007)
  (libraries euler))
 
 (executable
  (name p008)
+ (modules p008)
  (libraries euler))
 
 (executable
  (name p009)
+ (modules p009)
  (libraries euler))
 
 (executable
  (name p010)
+ (modules p010)
  (libraries euler))
 
 (executable
  (name p011)
+ (modules p011)
  (libraries euler))
 
 (executable
  (name p012)
+ (modules p012)
  (libraries euler))
 
 (executable
  (name p013)
+ (modules p013)
  (libraries euler zarith))
 
 (executable
  (name p014)
+ (modules p014)
  (libraries euler))
 
 (executable
  (name p015)
+ (modules p015)
  (libraries euler zarith))
 
 (executable
  (name p016)
+ (modules p016)
  (libraries euler zarith))
 
 (executable
  (name p017)
+ (modules p017)
  (libraries euler))
