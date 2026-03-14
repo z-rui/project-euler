@@ -102,3 +102,8 @@
  (name p021)
  (modules p021)
  (libraries euler zarith))
+
+(executable
+ (name p022)
+ (modules p022)
+ (libraries euler zarith))
