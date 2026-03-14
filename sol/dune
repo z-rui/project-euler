@@ -1,18 +1,59 @@
-(executables
- (names
-  p001
-  p002
-  p003
-  p004
-  p005
-  p006
-  p007
-  p008
-  p009
-  p010
-  p011
-  p012
-  p013
-  p014
-  p015)
+(executable
+ (name p001)
+ (libraries euler))
+
+(executable
+ (name p002)
+ (libraries euler))
+
+(executable
+ (name p003)
+ (libraries euler))
+
+(executable
+ (name p004)
+ (libraries euler))
+
+(executable
+ (name p005)
+ (libraries euler))
+
+(executable
+ (name p006)
+ (libraries euler))
+
+(executable
+ (name p007)
+ (libraries euler))
+
+(executable
+ (name p008)
+ (libraries euler))
+
+(executable
+ (name p009)
+ (libraries euler))
+
+(executable
+ (name p010)
+ (libraries euler))
+
+(executable
+ (name p011)
+ (libraries euler))
+
+(executable
+ (name p012)
+ (libraries euler))
+
+(executable
+ (name p013)
+ (libraries euler zarith))
+
+(executable
+ (name p014)
+ (libraries euler))
+
+(executable
+ (name p015)
  (libraries euler zarith))
