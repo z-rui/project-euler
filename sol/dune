@@ -88,7 +88,12 @@
  (modules p018)
  (libraries euler))
 
- (executable
-  (name p019)
-  (modules p019)
-  (libraries euler))
+(executable
+ (name p019)
+ (modules p019)
+ (libraries euler))
+
+(executable
+ (name p020)
+ (modules p020)
+ (libraries euler zarith))
