@@ -33,10 +33,6 @@ module Prime_table = struct
     done;
     assert (!i = !cnt);
     { is_prime; primes }
-
-  let is_prime t n = t.is_prime.(n)
-  let nth_prime t n = t.primes.(n)
-  let length t = Array.length t.primes
 end
 
 let factorize n =

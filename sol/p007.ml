@@ -1,3 +1,3 @@
 let () =
-  let primetab = Euler.Prime_table.create 1_000_000 in
-  Euler.Prime_table.nth_prime primetab 10000 |> Printf.printf "%d\n"
+  let Euler.Prime_table.{ primes } = Euler.Prime_table.create 1_000_000 in
+  Printf.printf "%d\n" primes.(10000)
