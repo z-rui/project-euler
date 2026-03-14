@@ -82,3 +82,8 @@
  (name p017)
  (modules p017)
  (libraries euler))
+
+(executable
+ (name p018)
+ (modules p018)
+ (libraries euler))
