@@ -61,3 +61,7 @@
 (executable
  (name p016)
  (libraries euler zarith))
+
+(executable
+ (name p017)
+ (libraries euler))
