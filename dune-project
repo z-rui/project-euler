@@ -5,6 +5,7 @@
 (generate_opam_files true)
 
 (package
+ (allow_empty)
  (name euler)
  (synopsis "Solutions to Project Euler")
  (depends ocaml))
