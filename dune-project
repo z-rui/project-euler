@@ -8,6 +8,6 @@
  (allow_empty)
  (name euler)
  (synopsis "Solutions to Project Euler")
- (depends ocaml))
+ (depends ocaml zarith))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/reference/dune-project/index.html

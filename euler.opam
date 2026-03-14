@@ -4,6 +4,7 @@ synopsis: "Solutions to Project Euler"
 depends: [
   "dune" {>= "3.21"}
   "ocaml"
+  "zarith"
   "odoc" {with-doc}
 ]
 build: [
