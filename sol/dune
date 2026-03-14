@@ -97,3 +97,8 @@
  (name p020)
  (modules p020)
  (libraries euler zarith))
+
+(executable
+ (name p021)
+ (modules p021)
+ (libraries euler zarith))

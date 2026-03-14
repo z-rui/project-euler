@@ -44,7 +44,7 @@ let factorize n =
         else Seq.Cons ((divisor, ord), fun () -> next 2 n')
       in
       loop 1 (n / divisor)
-    else next (divisor + 1) n
+    else next (divisor + 1 + (divisor land 1)) n
   in
   fun () -> next 2 n
 
