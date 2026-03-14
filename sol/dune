@@ -57,3 +57,7 @@
 (executable
  (name p015)
  (libraries euler zarith))
+
+(executable
+ (name p016)
+ (libraries euler zarith))
