@@ -38,3 +38,16 @@ module Prime_table = struct
   let nth_prime t n = t.primes.(n)
   let length t = Array.length t.primes
 end
+
+let factorize n =
+  let rec next divisor n =
+    if divisor > n then Seq.Nil
+    else if n mod divisor = 0 then
+      let rec loop ord n' =
+        if n' mod divisor = 0 then loop (ord + 1) (n' / divisor)
+        else Seq.Cons ((divisor, ord), fun () -> next 2 n')
+      in
+      loop 1 (n / divisor)
+    else next (divisor + 1) n
+  in
+  fun () -> next 2 n
