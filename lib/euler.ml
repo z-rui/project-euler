@@ -22,7 +22,6 @@ module Prime_table = struct
       end;
       incr i
     done;
-    Printf.eprintf "%d primes up to %d\n" !cnt n;
     let primes = Array.make !cnt 0 in
     i := 0;
     for k = 2 to n do

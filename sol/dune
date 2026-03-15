@@ -127,3 +127,8 @@
  (name p026)
  (modules p026)
  (libraries euler zarith))
+
+(executable
+ (name p027)
+ (modules p027)
+ (libraries euler zarith))
