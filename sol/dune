@@ -177,3 +177,8 @@
  (name p036)
  (modules p036)
  (libraries euler))
+
+(executable
+ (name p037)
+ (modules p037)
+ (libraries euler))
