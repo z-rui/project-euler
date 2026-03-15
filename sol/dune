@@ -147,3 +147,8 @@
  (name p030)
  (modules p030)
  (libraries euler))
+
+(executable
+ (name p031)
+ (modules p031)
+ (libraries euler))
