@@ -54,3 +54,19 @@ let z_digits =
       else
         let q, r = Z.(div_rem z ~$10) in
         Some (Z.to_int r, q))
+
+let sum_proper_divisors n =
+  let sum = ref 0 in
+  let rec aux factors = function
+    | [] ->
+        let n' = List.fold_left ( * ) 1 factors in
+        if n' < n then sum := !sum + n'
+    | (p, n) :: rest ->
+        let factor = ref 1 in
+        for k = 0 to n do
+          aux (!factor :: factors) rest;
+          factor := !factor * p
+        done
+  in
+  aux [] (factorize n |> List.of_seq);
+  !sum
