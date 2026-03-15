@@ -152,3 +152,8 @@
  (name p031)
  (modules p031)
  (libraries euler))
+
+(executable
+ (name p032)
+ (modules p032)
+ (libraries euler zarith))
