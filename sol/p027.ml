@@ -16,7 +16,7 @@ let () =
   Array.to_seq prime_table.primes
   |> Seq.take_while (fun b -> b <= 1000)
   |> Seq.iter begin fun b ->
-      for a = -1000 to 1000 do
+      for a = -999 to 999 do
         let len = prime_length a b in
         if len > !max_prime_len then begin
           max_prime_len := len;
