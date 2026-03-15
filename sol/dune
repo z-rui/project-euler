@@ -167,3 +167,8 @@
  (name p034)
  (modules p034)
  (libraries euler))
+
+(executable
+ (name p035)
+ (modules p035)
+ (libraries euler))
