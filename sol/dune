@@ -162,3 +162,8 @@
  (name p033)
  (modules p033)
  (libraries euler))
+
+(executable
+ (name p034)
+ (modules p034)
+ (libraries euler))
