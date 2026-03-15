@@ -101,14 +101,19 @@
 (executable
  (name p021)
  (modules p021)
- (libraries euler zarith))
+ (libraries euler))
 
 (executable
  (name p022)
  (modules p022)
- (libraries euler zarith))
+ (libraries euler))
 
 (executable
  (name p023)
  (modules p023)
- (libraries euler zarith))
+ (libraries euler))
+
+(executable
+ (name p024)
+ (modules p024)
+ (libraries euler))
