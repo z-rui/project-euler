@@ -1,14 +1,15 @@
-let reciprocal_cycle denom =
-  let seen = Array.make denom None in
-  let rec aux num i =
-    if num = 0 then 0
-    else if num >= denom then aux (num mod denom) (i + 1)
-    else
-      match seen.(num) with
-      | Some i' -> i - i'
-      | None ->
-          seen.(num) <- Some i;
-          aux (num * 10) i
+let reciprocal_cycle d =
+  let seen = Array.make d None in
+  let rec aux n i =
+    match n mod d with
+    | 0 -> 0
+    | r -> begin
+        match seen.(r) with
+        | Some i' -> i - i'
+        | None ->
+            seen.(r) <- Some i;
+            aux (r * 10) (i + 1)
+      end
   in
   aux 1 0
 
