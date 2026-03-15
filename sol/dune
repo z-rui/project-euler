@@ -192,3 +192,8 @@
  (name p039)
  (modules p039)
  (libraries euler))
+
+(executable
+ (name p040)
+ (modules p040)
+ (libraries euler))
