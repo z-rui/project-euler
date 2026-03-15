@@ -57,16 +57,15 @@ let z_digits =
 
 let sum_proper_divisors n =
   let sum = ref 0 in
-  let rec aux factors = function
-    | [] ->
-        let n' = List.fold_left ( * ) 1 factors in
-        if n' < n then sum := !sum + n'
+  let rec aux divisor = function
+    | [] -> if divisor < n then sum := !sum + divisor
     | (p, n) :: rest ->
-        let factor = ref 1 in
-        for k = 0 to n do
-          aux (!factor :: factors) rest;
-          factor := !factor * p
-        done
+        let divisor' = ref divisor in
+        for k = 0 to n - 1 do
+          aux !divisor' rest;
+          divisor' := !divisor' * p
+        done;
+        aux !divisor' rest
   in
-  aux [] (factorize n |> List.of_seq);
+  aux 1 (factorize n |> List.of_seq);
   !sum
