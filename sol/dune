@@ -211,4 +211,4 @@
 (executable
  (name p043)
  (modules p043)
- (libraries euler fmt))
+ (libraries euler))
