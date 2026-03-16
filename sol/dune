@@ -216,4 +216,9 @@
 (executable
  (name p044)
  (modules p044)
- (libraries euler zarith))
+ (libraries euler))
+
+(executable
+ (name p045)
+ (modules p045)
+ (libraries euler))
