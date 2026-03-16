@@ -1,5 +1,5 @@
 let powm_sum n m =
-  Seq.ints 1 |> Seq.take n |> Seq.map Z.of_int
+  Seq.init n (fun i -> Z.of_int (i + 1))
   |> Seq.fold_left (fun acc i -> Z.((acc + powm i i m) mod m)) Z.zero
 
 let () =
