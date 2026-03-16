@@ -207,3 +207,8 @@
  (name p042)
  (modules p042)
  (libraries euler zarith))
+
+(executable
+ (name p043)
+ (modules p043)
+ (libraries euler fmt))
