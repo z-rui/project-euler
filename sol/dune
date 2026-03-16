@@ -232,3 +232,8 @@
  (name p047)
  (modules p047)
  (libraries euler))
+
+(executable
+ (name p048)
+ (modules p048)
+ (libraries euler zarith))
