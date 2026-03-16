@@ -1,28 +1,24 @@
 (** Sub-string Divisibility *)
 
-let combine digits =
-  Array.to_seq digits |> Seq.fold_left (fun acc d -> (acc * 10) + d) 0
-
 let special_pandigitals () =
+  let result = ref [] in
   let primes = [| 2; 3; 5; 7; 11; 13; 17 |] in
-  let check digits =
-    let rec aux curr i =
-      if curr mod primes.(i) <> 0 then false
-      else if i = 6 then true
-      else aux (((curr * 10) + digits.(i + 4)) mod 1000) (i + 1)
-    in
-    aux ((((digits.(1) * 10) + digits.(2)) * 10) + digits.(3)) 0
+  let rec aux acc len used =
+    if len < 4 || acc mod 1000 mod primes.(len - 4) = 0 then
+      if len = 10 then result := acc :: !result
+      else
+        for d = 0 to 9 do
+          if used land (1 lsl d) = 0 then
+            let acc' = (acc * 10) + d in
+            let used' = used lxor (1 lsl d) in
+            aux acc' (len + 1) used'
+        done
   in
-  (* a bit wasteful to enumerate all permutations, but easy to implement *)
-  let digits = Array.init 10 Fun.id in
-  digits.(0) <- 1;
-  digits.(1) <- 0;
-  let rec loop acc =
-    let acc' = if check digits then acc + combine digits else acc in
-    if Euler.next_permutation Int.compare digits then loop acc' else acc'
-  in
-  loop 0
+  for d = 1 to 9 do
+    aux d 1 (1 lsl d)
+  done;
+  !result
 
 let () =
-  special_pandigitals () |> print_int;
+  special_pandigitals () |> List.fold_left ( + ) 0 |> print_int;
   print_newline ()
