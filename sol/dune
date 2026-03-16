@@ -202,3 +202,8 @@
  (name p041)
  (modules p041)
  (libraries euler zarith))
+
+(executable
+ (name p042)
+ (modules p042)
+ (libraries euler zarith))
