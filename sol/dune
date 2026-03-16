@@ -197,3 +197,8 @@
  (name p040)
  (modules p040)
  (libraries euler))
+
+(executable
+ (name p041)
+ (modules p041)
+ (libraries euler zarith))
