@@ -7,15 +7,11 @@ let max_prime = prime_table.primes.(Array.length prime_table.primes - 1)
 
 let next_prime =
   let arr = Array.make max_prime 0 in
-  let j = ref 0 in
-  let p = ref 2 in
-  for i = 0 to max_prime - 1 do
-    if i >= !p then begin
-      incr j;
-      p := prime_table.primes.(!j)
-    end;
-    arr.(i) <- !p
-  done;
+  let rec gen i j p =
+    Array.fill arr i (p - i) p;
+    if p < max_prime then gen p (j + 1) prime_table.primes.(j + 1)
+  in
+  gen 0 0 2;
   arr
 
 let[@inline] char_to_digit c = Char.code c - Char.code '0'
@@ -59,7 +55,7 @@ let rec search w scale family_size =
   (* All patterns of width w have been visited. *)
   match
     H.fold
-      begin fun s (cnt, p) acc ->
+      begin fun _ (cnt, p) acc ->
         if !cnt = family_size then
           match acc with
           | None -> Some p
