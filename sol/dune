@@ -247,3 +247,8 @@
  (name p050)
  (modules p050)
  (libraries euler))
+
+(executable
+ (name p051)
+ (modules p051)
+ (libraries euler zarith))
