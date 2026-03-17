@@ -15,14 +15,14 @@ let iter_patterns n f =
   in
   aux 0 0 0 n
 
-let rec search prime_idx w scale family_size =
+let rec search prime_idx scale family_size =
   let module H = struct
     include Hashtbl.Make (Int)
 
     type elt = { mutable cnt : int; p : int }
   end in
   let scale' = scale * 10 in
-  let patterns : H.elt H.t = H.create (1 lsl (3 * w)) in
+  let patterns : H.elt H.t = H.create (scale * 2) in
   let rec loop prime_idx =
     if prime_idx >= Array.length prime_table.primes then
       failwith "run out of primes; extend prime table";
@@ -39,7 +39,7 @@ let rec search prime_idx w scale family_size =
   in
   let prime_idx' = loop prime_idx in
 
-  (* All patterns of width w have been visited. *)
+  (* All patterns of this width have been visited. *)
   let foldfunc _ ({ cnt; p } : H.elt) acc =
     if cnt = family_size then
       match acc with None -> Some p | Some p' when p' > p -> Some p | _ -> acc
@@ -47,9 +47,9 @@ let rec search prime_idx w scale family_size =
   in
   match H.fold foldfunc patterns None with
   | Some p -> p
-  | None -> search prime_idx' (w + 1) scale' family_size
+  | None -> search prime_idx' scale' family_size
 
 let () =
   (* 2 3 5 7 [11], first idx = 4 *)
-  search 4 2 10 8 |> print_int;
+  search 4 10 8 |> print_int;
   print_newline ()
