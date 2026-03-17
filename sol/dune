@@ -242,3 +242,8 @@
  (name p049)
  (modules p049)
  (libraries euler))
+
+(executable
+ (name p050)
+ (modules p050)
+ (libraries euler))
