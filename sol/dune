@@ -251,4 +251,4 @@
 (executable
  (name p051)
  (modules p051)
- (libraries euler zarith))
+ (libraries euler))
