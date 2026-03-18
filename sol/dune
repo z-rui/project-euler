@@ -252,3 +252,8 @@
  (name p051)
  (modules p051)
  (libraries euler))
+
+(executable
+ (name p052)
+ (modules p052)
+ (libraries euler))
