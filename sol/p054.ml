@@ -37,9 +37,6 @@ module Poker = struct
       count_num.(num) <- count_num.(num) + 1;
       let s = Suit.to_int suit in
       count_suit.(s) <- count_suit.(s) + 1
-
-    let get_char ((count_num, _) : t) c = count_num.(char_to_num c)
-    let get_suit ((_, count_suit) : t) suit = count_suit.(Suit.to_int suit)
   end
 
   module Hand = struct
@@ -67,21 +64,19 @@ module Poker = struct
         count_num;
       let is_flush = Array.mem 5 count_suit in
       let is_straight =
-        let rec aux cnt i n =
-          if cnt = n then Some (i - 1)
-          else if i >= Array.length count_num then None
-          else
-            let cnt' = match count_num.(i) with 1 -> cnt + 1 | _ -> 0 in
-            aux cnt' (i + 1) n
-        in
-        match aux 0 0 5 with
-        | Some _ as x -> x
-        | None ->
-            (* special case for A 2 3 4 5 *)
-            begin match count_rep.(0) with
-            | [ 12; 3; 2; 1; 0 ] -> Some 3
-            | _ -> None
-            end
+        match count_rep.(0) with
+        (* special case for A 2 3 4 5 *)
+        | [ 12; 3; 2; 1; 0 ] -> Some 3
+        | [ 4; 3; 2; 1; 0 ] -> Some 4
+        | [ 5; 4; 3; 2; 1 ] -> Some 5
+        | [ 6; 5; 4; 3; 2 ] -> Some 6
+        | [ 7; 6; 5; 4; 3 ] -> Some 7
+        | [ 8; 7; 6; 5; 4 ] -> Some 8
+        | [ 9; 8; 7; 6; 5 ] -> Some 9
+        | [ 10; 9; 8; 7; 6 ] -> Some 10
+        | [ 11; 10; 9; 8; 7 ] -> Some 11
+        | [ 12; 11; 10; 9; 8 ] -> Some 12
+        | _ -> None
       in
       if is_flush then
         match is_straight with
