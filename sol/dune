@@ -262,3 +262,8 @@
  (name p053)
  (modules p053)
  (libraries euler zarith))
+
+(executable
+ (name p054)
+ (modules p054)
+ (libraries euler))
