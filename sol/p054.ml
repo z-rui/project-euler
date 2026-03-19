@@ -46,36 +46,31 @@ let compute_hand cards : hand =
       count_suit.(s) <- count_suit.(s) + 1
     end
     cards;
-  let count_rep = Array.make 4 [] in
+  let buckets = Array.make 4 [] in
   Array.iteri
-    begin fun n cnt ->
-      if cnt > 0 then count_rep.(cnt - 1) <- n :: count_rep.(cnt - 1)
-    end
+    (fun n cnt -> if cnt > 0 then buckets.(cnt - 1) <- n :: buckets.(cnt - 1))
     count_num;
-  let is_straight =
-    match count_rep.(0) with
-    | [ high; _; _; _; low ] when high - low = 4 -> Some high
-    | [ 12; 3; 2; 1; 0 ] -> Some 3 (* special case for A 2 3 4 5 *)
-    | _ -> None
-  in
-  let is_flush = Array.mem 5 count_suit in
-  if is_flush then
-    match is_straight with
-    | Some high -> Straight_flush high
-    | None -> Flush count_rep.(0)
-  else
-    match count_rep with
-    | [| ones; _; _; [ four ] |] -> Four_of_a_kind (four, ones)
-    | [| _; [ two ]; [ three ]; _ |] -> Full_house (three, two)
-    | [| ones; _; [ three ]; _ |] -> Three_of_a_kind (three, ones)
-    | [| ones; [ high; low ]; _; _ |] -> Two_pairs (high, low, ones)
-    | [| ones; [ two ]; _; _ |] -> One_pair (two, ones)
-    | [| ones; []; []; [] |] -> begin
-        match is_straight with
-        | Some high -> Straight high
-        | None -> High_card ones
-      end
-    | _ -> failwith "unrecognized pattern"
+  match buckets with
+  | [| ones; _; _; [ four ] |] -> Four_of_a_kind (four, ones)
+  | [| _; [ two ]; [ three ]; _ |] -> Full_house (three, two)
+  | [| ones; _; [ three ]; _ |] -> Three_of_a_kind (three, ones)
+  | [| ones; [ high; low ]; _; _ |] -> Two_pairs (high, low, ones)
+  | [| ones; [ two ]; _; _ |] -> One_pair (two, ones)
+  | [| ones; []; []; [] |] -> begin
+      let is_flush = Array.mem 5 count_suit
+      and is_straight =
+        match ones with
+        | [ high; _; _; _; low ] when high - low = 4 -> Some high
+        | [ 12; 3; 2; 1; 0 ] -> Some 3 (* special case for A 2 3 4 5 *)
+        | _ -> None
+      in
+      match is_straight with
+      | Some high when is_flush -> Straight_flush high
+      | None when is_flush -> Flush ones
+      | Some high -> Straight high
+      | None -> High_card ones
+    end
+  | _ -> failwith "unrecognized pattern"
 
 let parse_line s =
   match String.split_on_char ' ' s |> List.map parse_card with
