@@ -37,15 +37,14 @@ type hand =
 let compute_hand cards : hand =
   if List.length cards <> 5 then invalid_arg "a hand must be exactly 5 cards";
   let count_num = Array.make 13 0 and count_suit = Array.make 4 0 in
-  List.iter
-    begin fun (num, suit) ->
-      count_num.(num) <- count_num.(num) + 1;
-      let s =
-        match suit with Spade -> 0 | Heart -> 1 | Club -> 2 | Diamond -> 3
-      in
-      count_suit.(s) <- count_suit.(s) + 1
-    end
-    cards;
+  let do_count (num, suit) =
+    count_num.(num) <- count_num.(num) + 1;
+    let s =
+      match suit with Spade -> 0 | Heart -> 1 | Club -> 2 | Diamond -> 3
+    in
+    count_suit.(s) <- count_suit.(s) + 1
+  in
+  List.iter do_count cards;
   let buckets = Array.make 4 [] in
   Array.iteri
     (fun n cnt -> if cnt > 0 then buckets.(cnt - 1) <- n :: buckets.(cnt - 1))
