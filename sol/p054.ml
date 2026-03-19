@@ -23,7 +23,7 @@ let parse_card s : card =
   (num, suit)
 
 type hand =
-  (* The int list at the end are the "high cards" in for tie breaking *)
+  (* The int list at the end are the "high cards" for tie breaking *)
   | High_card of int list (* descending order *)
   | One_pair of int * int list
   | Two_pairs of int * int (* descending order *) * int list
@@ -82,7 +82,7 @@ let () =
   |> List.fold_left
        begin fun acc line ->
          let lhs, rhs = parse_line line in
-         (* OCaml's polymorhpic comparison works well here *)
+         (* OCaml's polymorphic comparison works well here *)
          match compare lhs rhs with
          | x when x > 0 -> acc + 1
          | x when x < 0 -> acc
