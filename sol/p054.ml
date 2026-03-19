@@ -1,107 +1,95 @@
-module Poker = struct
-  module Suit = struct
-    type t = Spade | Heart | Club | Diamond
+type suit = Spade | Heart | Club | Diamond
+type card = int * suit
 
-    let of_char = function
-      | 'S' -> Spade
-      | 'H' -> Heart
-      | 'C' -> Club
-      | 'D' -> Diamond
-      | _ -> failwith "invalid suit charactor"
+let parse_card s : card =
+  if String.length s <> 2 then invalid_arg "parse_card";
+  let num =
+    match s.[0] with
+    | '2' .. '9' as c -> Char.code c - Char.code '2'
+    | 'T' -> 8
+    | 'J' -> 9
+    | 'Q' -> 10
+    | 'K' -> 11
+    | 'A' -> 12
+    | _ -> invalid_arg "parse_card"
+  and suit =
+    match s.[1] with
+    | 'S' -> Spade
+    | 'H' -> Heart
+    | 'C' -> Club
+    | 'D' -> Diamond
+    | _ -> invalid_arg "parse_card"
+  in
+  (num, suit)
 
-    let to_int = function Spade -> 0 | Heart -> 1 | Club -> 2 | Diamond -> 3
-  end
+type hand =
+  (* The int list at the end are the "high cards" in for tie breaking *)
+  | High_card of int list (* descending order *)
+  | One_pair of int * int list
+  | Two_pairs of int * int (* descending order *) * int list
+  | Three_of_a_kind of int * int list
+  | Straight of int (* largest number *)
+  | Flush of int list (* descending order *)
+  | Full_house of int * int (* three followed by pair *)
+  | Four_of_a_kind of int * int list
+  | Straight_flush of int (* largest number *)
 
-  let all_chars = "23456789TJQKA"
-  let char_to_num c = String.index all_chars c
-  let num_to_char i = all_chars.[i]
-
-  module Card = struct
-    type t = int * Suit.t
-
-    let num ((n, _) : t) = n
-    let compare (x, _) (y, _) = Int.compare x y
-
-    let of_string s : t =
-      if String.length s <> 2 then
-        invalid_arg "Card.of_string: must have length of 2";
-      (char_to_num s.[0], Suit.of_char s.[1])
-  end
-
-  module Counter = struct
-    type t = int array * int array
-
-    let create () : t = (Array.make 13 0, Array.make 4 0)
-
-    let add ((count_num, count_suit) : t) ((num, suit) : Card.t) =
+let compute_hand cards : hand =
+  if List.length cards <> 5 then invalid_arg "a hand must be exactly 5 cards";
+  let count_num = Array.make 13 0 and count_suit = Array.make 4 0 in
+  List.iter
+    begin fun (num, suit) ->
       count_num.(num) <- count_num.(num) + 1;
-      let s = Suit.to_int suit in
-      count_suit.(s) <- count_suit.(s) + 1
-  end
-
-  module Hand = struct
-    type t =
-      (* The int list at the end are the "high cards" used for breaking a tie *)
-      | High_card of int list (* descending order *)
-      | One_pair of int * int list
-      | Two_pairs of int * int (* descending order *) * int list
-      | Three_of_a_kind of int * int list
-      | Straight of int (* largest number *)
-      | Flush of int list (* descending order *)
-      | Full_house of int * int (* three followed by pair *)
-      | Four_of_a_kind of int * int list
-      | Straight_flush of int (* largest number *)
-
-    let of_cards cards =
-      if List.length cards <> 5 then
-        invalid_arg "a hand must be exactly 5 cards";
-      let ((count_num, count_suit) as count) = Counter.create () in
-      List.iter (Counter.add count) cards;
-      let count_rep = Array.make 4 [] in
-      Array.iteri
-        (fun n cnt ->
-          if cnt > 0 then count_rep.(cnt - 1) <- n :: count_rep.(cnt - 1))
-        count_num;
-      let is_flush = Array.mem 5 count_suit in
-      let is_straight =
-        match count_rep.(0) with
-        (* special case for A 2 3 4 5 *)
-        | [ 12; 3; 2; 1; 0 ] -> Some 3
-        | [ 4; 3; 2; 1; 0 ] -> Some 4
-        | [ 5; 4; 3; 2; 1 ] -> Some 5
-        | [ 6; 5; 4; 3; 2 ] -> Some 6
-        | [ 7; 6; 5; 4; 3 ] -> Some 7
-        | [ 8; 7; 6; 5; 4 ] -> Some 8
-        | [ 9; 8; 7; 6; 5 ] -> Some 9
-        | [ 10; 9; 8; 7; 6 ] -> Some 10
-        | [ 11; 10; 9; 8; 7 ] -> Some 11
-        | [ 12; 11; 10; 9; 8 ] -> Some 12
-        | _ -> None
+      let s =
+        match suit with Spade -> 0 | Heart -> 1 | Club -> 2 | Diamond -> 3
       in
-      if is_flush then
+      count_suit.(s) <- count_suit.(s) + 1
+    end
+    cards;
+  let count_rep = Array.make 4 [] in
+  Array.iteri
+    begin fun n cnt ->
+      if cnt > 0 then count_rep.(cnt - 1) <- n :: count_rep.(cnt - 1)
+    end
+    count_num;
+  let is_straight =
+    match count_rep.(0) with
+    (* special case for A 2 3 4 5 *)
+    | [ 12; 3; 2; 1; 0 ] -> Some 3
+    | [ 4; 3; 2; 1; 0 ] -> Some 4
+    | [ 5; 4; 3; 2; 1 ] -> Some 5
+    | [ 6; 5; 4; 3; 2 ] -> Some 6
+    | [ 7; 6; 5; 4; 3 ] -> Some 7
+    | [ 8; 7; 6; 5; 4 ] -> Some 8
+    | [ 9; 8; 7; 6; 5 ] -> Some 9
+    | [ 10; 9; 8; 7; 6 ] -> Some 10
+    | [ 11; 10; 9; 8; 7 ] -> Some 11
+    | [ 12; 11; 10; 9; 8 ] -> Some 12
+    | _ -> None
+  in
+  let is_flush = Array.mem 5 count_suit in
+  if is_flush then
+    match is_straight with
+    | Some high -> Straight_flush high
+    | None -> Flush count_rep.(0)
+  else
+    match count_rep with
+    | [| ones; _; _; [ four ] |] -> Four_of_a_kind (four, ones)
+    | [| _; [ two ]; [ three ]; _ |] -> Full_house (three, two)
+    | [| ones; _; [ three ]; _ |] -> Three_of_a_kind (three, ones)
+    | [| ones; [ high; low ]; _; _ |] -> Two_pairs (high, low, ones)
+    | [| ones; [ two ]; _; _ |] -> One_pair (two, ones)
+    | [| ones; []; []; [] |] -> begin
         match is_straight with
-        | Some high -> Straight_flush high
-        | _ -> Flush count_rep.(0)
-      else
-        match count_rep with
-        | [| ones; _; _; [ four ] |] -> Four_of_a_kind (four, ones)
-        | [| _; [ two ]; [ three ]; _ |] -> Full_house (three, two)
-        | [| ones; _; [ three ]; _ |] -> Three_of_a_kind (three, ones)
-        | [| ones; [ high; low ]; _; _ |] -> Two_pairs (high, low, ones)
-        | [| ones; [ two ]; _; _ |] -> One_pair (two, ones)
-        | [| ones; []; []; [] |] -> begin
-            match is_straight with
-            | Some high -> Straight high
-            | _ -> High_card ones
-          end
-        | _ -> failwith "unrecognized pattern"
-  end
-end
+        | Some high -> Straight high
+        | None -> High_card ones
+      end
+    | _ -> failwith "unrecognized pattern"
 
 let parse_line s =
-  match String.split_on_char ' ' s |> List.map Poker.Card.of_string with
+  match String.split_on_char ' ' s |> List.map parse_card with
   | c0 :: c1 :: c2 :: c3 :: c4 :: ([ _; _; _; _; _ ] as rhs) ->
-      Poker.Hand.(of_cards [ c0; c1; c2; c3; c4 ], of_cards rhs)
+      (compute_hand [ c0; c1; c2; c3; c4 ], compute_hand rhs)
   | _ -> failwith "parse_line: invalid format"
 
 let () =
