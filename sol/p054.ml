@@ -54,17 +54,8 @@ let compute_hand cards : hand =
     count_num;
   let is_straight =
     match count_rep.(0) with
-    (* special case for A 2 3 4 5 *)
-    | [ 12; 3; 2; 1; 0 ] -> Some 3
-    | [ 4; 3; 2; 1; 0 ] -> Some 4
-    | [ 5; 4; 3; 2; 1 ] -> Some 5
-    | [ 6; 5; 4; 3; 2 ] -> Some 6
-    | [ 7; 6; 5; 4; 3 ] -> Some 7
-    | [ 8; 7; 6; 5; 4 ] -> Some 8
-    | [ 9; 8; 7; 6; 5 ] -> Some 9
-    | [ 10; 9; 8; 7; 6 ] -> Some 10
-    | [ 11; 10; 9; 8; 7 ] -> Some 11
-    | [ 12; 11; 10; 9; 8 ] -> Some 12
+    | [ high; _; _; _; low ] when high - low = 4 -> Some high
+    | [ 12; 3; 2; 1; 0 ] -> Some 3 (* special case for A 2 3 4 5 *)
     | _ -> None
   in
   let is_flush = Array.mem 5 count_suit in
