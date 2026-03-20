@@ -69,23 +69,16 @@ let compute_hand cards : hand =
     end
   | _ -> failwith "unrecognized pattern"
 
-let parse_line s =
-  match String.split_on_char ' ' s |> List.map parse_card with
-  | c0 :: c1 :: c2 :: c3 :: c4 :: ([ _; _; _; _; _ ] as rhs) ->
-      (compute_hand [ c0; c1; c2; c3; c4 ], compute_hand rhs)
-  | _ -> failwith "parse_line: invalid format"
+let process_line acc line =
+  let cards = String.split_on_char ' ' line |> List.map parse_card in
+  let lhs = List.take 5 cards |> compute_hand
+  and rhs = List.drop 5 cards |> compute_hand in
+  (* OCaml's polymorphic comparison works well here *)
+  match compare lhs rhs with
+  | x when x > 0 -> acc + 1
+  | x when x < 0 -> acc
+  | _ -> failwith "tie (shouldn't happen in this problem)"
 
 let () =
-  In_channel.(input_lines stdin)
-  |> List.fold_left
-       begin fun acc line ->
-         let lhs, rhs = parse_line line in
-         (* OCaml's polymorphic comparison works well here *)
-         match compare lhs rhs with
-         | x when x > 0 -> acc + 1
-         | x when x < 0 -> acc
-         | _ -> failwith "tie (shouldn't happen in this problem)"
-       end
-       0
-  |> print_int;
+  In_channel.(input_lines stdin) |> List.fold_left process_line 0 |> print_int;
   print_newline ()
