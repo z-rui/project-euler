@@ -3,13 +3,13 @@ let reciprocal_cycle d =
   let rec aux n i =
     match n mod d with
     | 0 -> 0
-    | r -> begin
-        match seen.(r) with
+    | r ->
+        begin match seen.(r) with
         | Some i' -> i - i'
         | None ->
             seen.(r) <- Some i;
             aux (r * 10) (i + 1)
-      end
+        end
   in
   aux 1 0
 
