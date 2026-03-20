@@ -64,10 +64,8 @@ let compute_hand cards : hand =
         | _ -> None
       in
       match is_straight with
-      | Some high when is_flush -> Straight_flush high
-      | None when is_flush -> Flush ones
-      | Some high -> Straight high
-      | None -> High_card ones
+      | Some high -> if is_flush then Straight_flush high else Straight high
+      | None -> if is_flush then Flush ones else High_card ones
     end
   | _ -> failwith "unrecognized pattern"
 
