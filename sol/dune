@@ -1,334 +1,70 @@
-(executable
- (name p001)
- (modules p001)
+(executables
+ (names
+  p001
+  p002
+  p003
+  p004
+  p005
+  p006
+  p007
+  p008
+  p009
+  p010
+  p011
+  p012
+  p013
+  p014
+  p015
+  p016
+  p017
+  p018
+  p019
+  p020
+  p021
+  p022
+  p023
+  p024
+  p025
+  p026
+  p027
+  p028
+  p029
+  p030
+  p031
+  p032
+  p033
+  p034
+  p035
+  p036
+  p037
+  p038
+  p039
+  p040
+  p041
+  p042
+  p043
+  p044
+  p045
+  p046
+  p047
+  p048
+  p049
+  p050
+  p051
+  p052
+  p053
+  p054
+  p055
+  p056
+  p057
+  p058
+  p059
+  p060
+  p061
+  p062
+  p063
+  p064
+  p065
+  p066
+  p067)
  (libraries euler))
-
-(executable
- (name p002)
- (modules p002)
- (libraries euler))
-
-(executable
- (name p003)
- (modules p003)
- (libraries euler))
-
-(executable
- (name p004)
- (modules p004)
- (libraries euler))
-
-(executable
- (name p005)
- (modules p005)
- (libraries euler))
-
-(executable
- (name p006)
- (modules p006)
- (libraries euler))
-
-(executable
- (name p007)
- (modules p007)
- (libraries euler))
-
-(executable
- (name p008)
- (modules p008)
- (libraries euler))
-
-(executable
- (name p009)
- (modules p009)
- (libraries euler))
-
-(executable
- (name p010)
- (modules p010)
- (libraries euler))
-
-(executable
- (name p011)
- (modules p011)
- (libraries euler))
-
-(executable
- (name p012)
- (modules p012)
- (libraries euler))
-
-(executable
- (name p013)
- (modules p013)
- (libraries euler zarith))
-
-(executable
- (name p014)
- (modules p014)
- (libraries euler))
-
-(executable
- (name p015)
- (modules p015)
- (libraries euler zarith))
-
-(executable
- (name p016)
- (modules p016)
- (libraries euler zarith))
-
-(executable
- (name p017)
- (modules p017)
- (libraries euler))
-
-(executable
- (name p018)
- (modules p018)
- (libraries euler))
-
-(executable
- (name p019)
- (modules p019)
- (libraries euler))
-
-(executable
- (name p020)
- (modules p020)
- (libraries euler zarith))
-
-(executable
- (name p021)
- (modules p021)
- (libraries euler))
-
-(executable
- (name p022)
- (modules p022)
- (libraries euler))
-
-(executable
- (name p023)
- (modules p023)
- (libraries euler))
-
-(executable
- (name p024)
- (modules p024)
- (libraries euler))
-
-(executable
- (name p025)
- (modules p025)
- (libraries euler zarith))
-
-(executable
- (name p026)
- (modules p026)
- (libraries euler))
-
-(executable
- (name p027)
- (modules p027)
- (libraries euler))
-
-(executable
- (name p028)
- (modules p028)
- (libraries euler))
-
-(executable
- (name p029)
- (modules p029)
- (libraries euler zarith))
-
-(executable
- (name p030)
- (modules p030)
- (libraries euler))
-
-(executable
- (name p031)
- (modules p031)
- (libraries euler))
-
-(executable
- (name p032)
- (modules p032)
- (libraries euler zarith))
-
-(executable
- (name p033)
- (modules p033)
- (libraries euler))
-
-(executable
- (name p034)
- (modules p034)
- (libraries euler))
-
-(executable
- (name p035)
- (modules p035)
- (libraries euler))
-
-(executable
- (name p036)
- (modules p036)
- (libraries euler))
-
-(executable
- (name p037)
- (modules p037)
- (libraries euler))
-
-(executable
- (name p038)
- (modules p038)
- (libraries euler))
-
-(executable
- (name p039)
- (modules p039)
- (libraries euler))
-
-(executable
- (name p040)
- (modules p040)
- (libraries euler))
-
-(executable
- (name p041)
- (modules p041)
- (libraries euler zarith))
-
-(executable
- (name p042)
- (modules p042)
- (libraries euler zarith))
-
-(executable
- (name p043)
- (modules p043)
- (libraries euler))
-
-(executable
- (name p044)
- (modules p044)
- (libraries euler))
-
-(executable
- (name p045)
- (modules p045)
- (libraries euler))
-
-(executable
- (name p046)
- (modules p046)
- (libraries euler zarith))
-
-(executable
- (name p047)
- (modules p047)
- (libraries euler))
-
-(executable
- (name p048)
- (modules p048)
- (libraries euler zarith))
-
-(executable
- (name p049)
- (modules p049)
- (libraries euler))
-
-(executable
- (name p050)
- (modules p050)
- (libraries euler))
-
-(executable
- (name p051)
- (modules p051)
- (libraries euler))
-
-(executable
- (name p052)
- (modules p052)
- (libraries euler))
-
-(executable
- (name p053)
- (modules p053)
- (libraries euler zarith))
-
-(executable
- (name p054)
- (modules p054)
- (libraries euler))
-
-(executable
- (name p055)
- (modules p055)
- (libraries euler zarith))
-
-(executable
- (name p056)
- (modules p056)
- (libraries euler zarith))
-
-(executable
- (name p057)
- (modules p057)
- (libraries euler zarith))
-
-(executable
- (name p058)
- (modules p058)
- (libraries euler))
-
-(executable
- (name p059)
- (modules p059)
- (libraries euler))
-
-(executable
- (name p060)
- (modules p060)
- (libraries euler zarith))
-
-(executable
- (name p061)
- (modules p061)
- (libraries euler zarith))
-
-(executable
- (name p062)
- (modules p062)
- (libraries euler))
-
-(executable
- (name p063)
- (modules p063)
- (libraries euler))
-
-(executable
- (name p064)
- (modules p064)
- (libraries euler zarith))
-
-(executable
- (name p065)
- (modules p065)
- (libraries euler zarith))
-
-(executable
- (name p066)
- (modules p066)
- (libraries euler zarith))
-
-(executable
- (name p067)
- (modules p067)
- (libraries euler zarith))
