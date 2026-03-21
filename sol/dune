@@ -287,3 +287,8 @@
  (name p058)
  (modules p058)
  (libraries euler))
+
+(executable
+ (name p059)
+ (modules p059)
+ (libraries euler))
