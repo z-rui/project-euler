@@ -322,3 +322,8 @@
  (name p065)
  (modules p065)
  (libraries euler zarith))
+
+(executable
+ (name p066)
+ (modules p066)
+ (libraries euler zarith))
