@@ -292,3 +292,8 @@
  (name p059)
  (modules p059)
  (libraries euler))
+
+(executable
+ (name p060)
+ (modules p060)
+ (libraries euler zarith))
