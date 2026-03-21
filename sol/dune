@@ -302,3 +302,8 @@
  (name p061)
  (modules p061)
  (libraries euler zarith))
+
+(executable
+ (name p062)
+ (modules p062)
+ (libraries euler))
