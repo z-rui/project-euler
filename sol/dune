@@ -307,3 +307,8 @@
  (name p062)
  (modules p062)
  (libraries euler))
+
+(executable
+ (name p063)
+ (modules p063)
+ (libraries euler))
