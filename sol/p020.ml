@@ -1,2 +1,1 @@
-let () =
-  Z.fac 100 |> Euler.z_digits |> Seq.fold_left ( + ) 0 |> Printf.printf "%d\n"
+let () = Z.fac 100 |> Euler.Z_util.digit_sum |> Printf.printf "%d\n"

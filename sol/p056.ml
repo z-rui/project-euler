@@ -1,6 +1,6 @@
 (** Powerful Digit Sum *)
 
-let pow_digit_sum a b = Z.(~$a ** b) |> Euler.z_digits |> Seq.fold_left ( + ) 0
+let pow_digit_sum a b = Euler.Z_util.digit_sum Z.(~$a ** b)
 
 let () =
   let max_sum = ref 0 in

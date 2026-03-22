@@ -1,3 +1,1 @@
-let () =
-  Z.(~$2 ** 1000)
-  |> Euler.z_digits |> Seq.fold_left ( + ) 0 |> Printf.printf "%d\n"
+let () = Z.(~$2 ** 1000) |> Euler.Z_util.digit_sum |> Printf.printf "%d\n"
