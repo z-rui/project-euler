@@ -7,7 +7,7 @@ let create n =
   is_prime.(1) <- false;
   let cnt = ref 0 in
   let i = ref 2 in
-  while !i <= n do
+  while !i * !i <= n do
     if is_prime.(!i) then begin
       incr cnt;
       let j = ref (!i * !i) in
@@ -16,6 +16,10 @@ let create n =
         j := !j + !i
       done
     end;
+    incr i
+  done;
+  while !i <= n do
+    if is_prime.(!i) then incr cnt;
     incr i
   done;
   let primes = Array.make !cnt 0 in

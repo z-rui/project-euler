@@ -1,32 +1,30 @@
-let next_permutation cmp a =
-  let n = Array.length a in
-  let swap i j =
+let next_permutation_sub cmp a first last =
+  let[@inline] swap i j =
     let tmp = a.(i) in
     a.(i) <- a.(j);
     a.(j) <- tmp
   in
-  let rec rev i j =
+  let[@inline] rec rev i j =
     if i < j then begin
       swap i j;
       rev (i + 1) (j - 1)
     end
   in
-  let rec loop i =
-    if i < 0 then false
+  let[@inline] rec loop i =
+    if i < first then false
     else if cmp a.(i + 1) a.(i) <= 0 then loop (i - 1)
     else begin
-      let j =
-        let rec loop' acc j =
-          if j = n then acc
-          else if cmp a.(i) a.(j) < 0 && cmp a.(j) a.(acc) < 0 then
-            loop' j (j + 1)
-          else loop' acc (j + 1)
-        in
-        loop' (i + 1) (i + 2)
+      let[@inline] rec loop' acc j =
+        if j > last then acc
+        else if cmp a.(i) a.(j) < 0 && cmp a.(j) a.(acc) < 0 then loop' j (j + 1)
+        else loop' acc (j + 1)
       in
+      let j = loop' (i + 1) (i + 2) in
       swap i j;
-      rev (i + 1) (n - 1);
+      rev (i + 1) last;
       true
     end
   in
-  loop (n - 2)
+  loop (last - 1)
+
+let next_permutation cmp a = next_permutation_sub cmp a 0 (Array.length a - 1)
