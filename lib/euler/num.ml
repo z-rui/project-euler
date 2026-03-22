@@ -16,7 +16,8 @@ let factorize n =
   in
   let rec loop ord n' =
     if n' mod 2 = 0 then loop (ord + 1) (n' / 2)
-    else Seq.Cons ((2, ord), fun () -> next 3 n')
+    else if ord > 0 then Seq.Cons ((2, ord), fun () -> next 3 n')
+    else next 3 n'
   in
   fun () -> loop 0 n
 
