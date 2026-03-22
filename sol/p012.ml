@@ -4,7 +4,7 @@ let triangle_numbers : int Seq.t =
 
 let () =
   let divisor_count n =
-    Seq.fold_left (fun acc (_, k) -> acc * (k + 1)) 1 (Euler.factorize n)
+    Seq.fold_left (fun acc (_, k) -> acc * (k + 1)) 1 (Euler.Num.factorize n)
   in
   match
     triangle_numbers

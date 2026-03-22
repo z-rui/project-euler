@@ -9,7 +9,7 @@ let count_proper_frac lower upper d_max =
   for d = 2 to d_max do
     let n_min = n_approx_above lower d and n_max = n_approx_below upper d in
     for n = n_min to n_max do
-      if Euler.gcd n d = 1 then incr cnt
+      if Euler.Num.gcd n d = 1 then incr cnt
     done
   done;
   !cnt

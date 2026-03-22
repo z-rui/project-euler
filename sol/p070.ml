@@ -12,7 +12,7 @@ let compute_key n =
 
 let () =
   let limit = 10_000_000 in
-  let tot = Euler.totient_table limit in
+  let tot = Euler.Num.totient_table limit in
   Seq.ints 3
   |> Seq.take_while (fun x -> x < limit)
   |> Seq.fold_left

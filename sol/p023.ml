@@ -1,7 +1,7 @@
 (** Non-Abundant Sums *)
 
 let abundant_numbers : int Seq.t =
-  Seq.ints 1 |> Seq.filter @@ fun n -> Euler.sum_proper_divisors n > n
+  Seq.ints 1 |> Seq.filter @@ fun n -> Euler.Num.sum_proper_divisors n > n
 
 let non_abundant_sums n =
   let a = Seq.take_while (fun x -> x < n) abundant_numbers |> Array.of_seq in

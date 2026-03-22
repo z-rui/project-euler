@@ -18,7 +18,7 @@ let digit_cancelling_fractions () =
 
 let frac_mul (a, b) (c, d) =
   let num = a * c and denum = b * d in
-  let g = Euler.gcd num denum in
+  let g = Euler.Num.gcd num denum in
   (num / g, denum / g)
 
 let () =
