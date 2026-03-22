@@ -17,7 +17,7 @@ let () =
      let digits = explode p in
      let digits' = Array.of_list digits in
      let h = hash digits in
-     while Euler.next_permutation Int.compare digits' do
+     while Euler.Combinatorics.next_permutation Int.compare digits' do
        let q = combine (Array.to_seq digits') in
        assert (q > p);
        if primetab.is_prime.(q) then

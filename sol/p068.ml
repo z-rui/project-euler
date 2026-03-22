@@ -40,7 +40,7 @@ let solve n expected_length =
         | Some sol' when sol' < sol -> max_sol := Some sol
         | _ -> ()
     end;
-    if Euler.next_permutation Int.compare a then loop a
+    if Euler.Combinatorics.next_permutation Int.compare a then loop a
   in
   loop (Array.init (2 * n) (fun i -> i + 1));
   !max_sol
