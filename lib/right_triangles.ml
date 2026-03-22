@@ -1,4 +1,4 @@
-let primitive_right_triangles p_max =
+let primitives p_max =
   Seq.ints 2
   |> Seq.take_while (fun m -> 2 * m * (m + 1) <= p_max)
   |> Seq.concat_map begin fun m ->
@@ -17,9 +17,9 @@ let primitive_right_triangles p_max =
         end
     end
 
-let count_right_triangles p_max =
+let count_by_perimeter p_max =
   let count = Array.make (p_max + 1) 0 in
-  primitive_right_triangles p_max
+  primitives p_max
   |> Seq.iter begin fun (a, b, c) ->
       let rec loop acc p =
         count.(acc) <- count.(acc) + 1;

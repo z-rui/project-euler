@@ -4,4 +4,4 @@ include Z_util
 include Combinatorics
 module Word_file = Word_file
 module Continued_fraction = Continued_fraction
-include Right_triangles
+module Right_triangles = Right_triangles
