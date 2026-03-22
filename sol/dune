@@ -71,5 +71,6 @@
   p069
   p070
   p071
-  p072)
+  p072
+  p073)
  (libraries euler))
