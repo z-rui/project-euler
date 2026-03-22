@@ -67,5 +67,6 @@
   p065
   p066
   p067
-  p068)
+  p068
+  p069)
  (libraries euler))
