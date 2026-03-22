@@ -47,6 +47,30 @@ let factorize n =
   in
   fun () -> next 2 n
 
+let totient_table n =
+  let tot = Array.make (n + 1) 0 in
+  let primes = Dynarray.create () in
+  tot.(1) <- 1;
+  for i = 2 to n do
+    if tot.(i) = 0 then begin
+      tot.(i) <- i - 1;
+      Dynarray.add_last primes i
+    end;
+    let rec loop j =
+      if j < Dynarray.length primes then
+        let p = Dynarray.get primes j in
+        let ip = i * p in
+        if ip <= n then
+          match i mod p with
+          | 0 -> tot.(ip) <- tot.(i) * p
+          | _ ->
+              tot.(ip) <- tot.(i) * (p - 1);
+              loop (j + 1)
+    in
+    loop 0
+  done;
+  tot
+
 let z_digits =
   Seq.unfold @@ fun z ->
   if Z.(equal zero z) then None
