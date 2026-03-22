@@ -40,12 +40,16 @@ let factorize n =
     else if n mod divisor = 0 then
       let rec loop ord n' =
         if n' mod divisor = 0 then loop (ord + 1) (n' / divisor)
-        else Seq.Cons ((divisor, ord), fun () -> next 2 n')
+        else Seq.Cons ((divisor, ord), fun () -> next (divisor + 2) n')
       in
       loop 1 (n / divisor)
-    else next (divisor + 1 + (divisor land 1)) n
+    else next (divisor + 2) n
   in
-  fun () -> next 2 n
+  let rec loop ord n' =
+    if n' mod 2 = 0 then loop (ord + 1) (n' / 2)
+    else Seq.Cons ((2, ord), fun () -> next 3 n')
+  in
+  fun () -> loop 0 n
 
 let totient_table n =
   let tot = Array.make (n + 1) 0 in
