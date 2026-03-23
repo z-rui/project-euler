@@ -2,7 +2,6 @@
 
 let n = 10
 
-(* This could be done by topological sort, but we can do it in a dumb way... *)
 let parse_input chan =
   let exists = ref 0 and before = Array.make n 0 and deg = Array.make n 0 in
   let set_less x y =
