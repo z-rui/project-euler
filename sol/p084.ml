@@ -4,8 +4,8 @@ module Monopoly = struct
   type pos = int
   type card_action = No_action | Goto of pos | Back of int | Next_R | Next_U
 
-  let total_pos = 40
-  let jail_pos = 10
+  let total_pos : pos = 40
+  let jail_pos : pos = 10
 
   type card_pile = { mutable cntr : int; cards : card_action array }
 
@@ -121,9 +121,8 @@ let print_stats ({ pos_cntr; total_steps } : Monopoly.stats) =
 let () =
   Random.self_init ();
   let stats = Monopoly.create_stats () in
-  let simulation_steps = 10_000_000 in
   let state = Monopoly.create_state () in
-  for step = 1 to simulation_steps do
+  for step = 1 to 10_000_000 do
     Monopoly.roll_dice ~sides:4 state;
     Monopoly.update_stats state stats;
     if step mod 1_000_000 = 0 then begin
