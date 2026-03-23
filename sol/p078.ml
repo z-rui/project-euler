@@ -1,11 +1,5 @@
 (** Coin Partitions *)
 
-let find_sub f a first last =
-  let rec loop i =
-    if i > last then None else if f a.(i) then Some i else loop (i + 1)
-  in
-  loop first
-
 module type NUM = sig
   type t
 
