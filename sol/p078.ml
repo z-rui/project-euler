@@ -17,29 +17,24 @@ module Partition_gen (N : NUM) = struct
   let create () : t = Dynarray.make 1 N.one
 
   let next p : N.t =
-    let i = Dynarray.length p in
+    let open Dynarray in
+    let i = length p in
     (* Make use of generalized pentagonal number optimization:
           p(n) = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(12) + p(15) - ...
       References:
       - https://oeis.org/A000041
       - https://oeis.org/A001318
     *)
-    let rec loop j k neg sum =
-      (* k and k' are the next 2 terms in the gen. pent. num. sequence. *)
-      if k <= i then begin
-        let k' = k + j in
-        let term =
-          if k' <= i then
-            N.add (Dynarray.get p (i - k)) (Dynarray.get p (i - k'))
-          else Dynarray.get p (i - k)
-        in
+    let rec loop neg j i sum =
+      if i < 0 then sum
+      else
+        let i' = i - j in
+        let term = if i' < 0 then get p i else N.add (get p i) (get p i') in
         let sum' = if neg then N.sub sum term else N.add sum term in
-        loop (j + 1) (k' + j + j + 1) (not neg) sum'
-      end
-      else sum
+        loop (not neg) (j + 1) (i' - j - j - 1) sum'
     in
-    let result = loop 1 1 false N.zero in
-    Dynarray.add_last p result;
+    let result = loop false 1 (i - 1) N.zero in
+    add_last p result;
     result
 
   let seq : N.t Seq.t =
