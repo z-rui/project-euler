@@ -35,10 +35,9 @@ let count_paths side_max =
      2 * m * n <= 2 * side_max, we have n <= side_max / 2.  *)
   for n = 1 to side_max / 2 do
     let rec loop m =
-      let x = 2 * m * n in
-      if x <= twoside_max then begin
+      let x = 2 * m * n and y = (m * m) - (n * n) in
+      if x <= twoside_max && y <= twoside_max then begin
         if Euler.Num.gcd m n = 1 then begin
-          let y = (m * m) - (n * n) in
           check x y x y;
           check y x y x
         end;
