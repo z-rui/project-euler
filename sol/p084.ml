@@ -58,14 +58,7 @@ module Monopoly = struct
     | No_action -> ()
     | Goto pos -> state.pos <- pos
     | Next_R ->
-        let r_pos =
-          match Char.chr state.pos with
-          | '\035' .. '\039' | '\000' .. '\004' -> 5
-          | '\005' .. '\014' -> 15
-          | '\015' .. '\024' -> 25
-          | '\025' .. '\034' -> 35
-          | _ -> assert false
-        in
+        let r_pos = ((state.pos + 5) mod 40 / 10 * 10) + 5 in
         state.pos <- r_pos
     | Next_U ->
         let u_pos = if state.pos >= 12 && state.pos <= 28 then 28 else 12 in
