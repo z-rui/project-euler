@@ -7,7 +7,6 @@ let limit = 50_000_000
 let primes = (Euler.Prime_table.create 7071).primes
 
 let () =
-  let module H = Hashtbl.Make (Int) in
   let seen =
     Bigarray.(Array1.create int8_unsigned c_layout ((limit + 7) / 8))
   in
@@ -16,15 +15,16 @@ let () =
   let rec loop_c i =
     let c = primes.(i) in
     let n1 = c * c * c * c in
-    if n1 + 12 (* 2^2 + 2^3 *) <= limit then begin
+    if n1 < limit then begin
       let rec loop_b j =
         let b = primes.(j) in
         let n2 = n1 + (b * b * b) in
-        if n2 + 4 (* 2^2 *) <= limit then begin
-          Array.iter
-            begin fun a ->
+        if n2 < limit then begin
+          let rec loop_a k =
+            if k < Array.length primes then
+              let a = primes.(k) in
               let n = n2 + (a * a) in
-              if n < limit then
+              if n < limit then begin
                 (* bitmap reduces cache pressure *)
                 let idx = n / 8 and bm = 1 lsl (n mod 8) in
                 let bs = seen.{idx} in
@@ -32,9 +32,11 @@ let () =
                 if bs <> bs' then begin
                   incr cnt;
                   seen.{idx} <- bs'
-                end
-            end
-            primes;
+                end;
+                loop_a (k + 1)
+              end
+          in
+          loop_a 0;
           loop_b (j + 1)
         end
       in
