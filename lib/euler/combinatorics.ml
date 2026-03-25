@@ -28,3 +28,13 @@ let next_permutation_sub cmp a first last =
   loop (last - 1)
 
 let next_permutation cmp a = next_permutation_sub cmp a 0 (Array.length a - 1)
+
+let bit_combinations n k f =
+  let rec aux len curr min =
+    if len = k then f curr
+    else
+      for i = min to n - 1 do
+        aux (len + 1) (curr lor (1 lsl i)) (i + 1)
+      done
+  in
+  aux 0 0 0
