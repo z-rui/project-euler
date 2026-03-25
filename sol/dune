@@ -87,5 +87,6 @@
   p085
   p086
   p087
-  p088)
+  p088
+  p089)
  (libraries euler))
