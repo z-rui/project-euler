@@ -21,10 +21,9 @@ let factorize n =
   in
   fun () -> loop 0 n
 
-let sum_proper_divisors n =
-  let sum = ref 0 in
+let enumerate_divisors factors f =
   let rec aux divisor = function
-    | [] -> if divisor < n then sum := !sum + divisor
+    | [] -> f divisor
     | (p, n) :: rest ->
         let divisor' = ref divisor in
         for k = 0 to n - 1 do
@@ -33,8 +32,41 @@ let sum_proper_divisors n =
         done;
         aux !divisor' rest
   in
-  aux 1 (factorize n |> List.of_seq);
+  aux 1 factors
+
+let sum_proper_divisors n =
+  let sum = ref 0 in
+  enumerate_divisors
+    (factorize n |> List.of_seq)
+    (fun d -> if d < n then sum := !sum + d);
   !sum
+
+let factor_table n =
+  let lpf = Array.make (n + 1) 0 in
+  let i = ref 2 in
+  while !i * !i <= n do
+    if lpf.(!i) = 0 then begin
+      let j = ref (!i * !i) in
+      while !j <= n do
+        if lpf.(!j) = 0 then lpf.(!j) <- !i;
+        j := !j + !i
+      done
+    end;
+    incr i
+  done;
+  let fac = Array.make (n + 1) [] in
+  for i = 2 to n do
+    fac.(i) <-
+      begin match lpf.(i) with
+      | 0 -> [ (i, 1) ]
+      | p ->
+          begin match fac.(i / p) with
+          | (p', k) :: fs when p = p' -> (p', k + 1) :: fs
+          | fs -> (p, 1) :: fs
+          end
+      end
+  done;
+  fac
 
 let totient_table n =
   let tot = Array.make (n + 1) 0 in
