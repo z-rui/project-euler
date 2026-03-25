@@ -92,5 +92,6 @@
   p090
   p091
   p092
-  p093)
+  p093
+  p094)
  (libraries euler))
